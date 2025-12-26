@@ -1,0 +1,7 @@
+class Config
+  def self.configure: () { (Config) -> void } -> Config
+
+  attr_accessor client: untyped
+  attr_accessor role: untyped
+  attr_accessor prompt: untyped
+end

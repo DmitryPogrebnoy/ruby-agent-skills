@@ -1,0 +1,16 @@
+{
+  "name": "ruby-agent-skills",
+  "owner": {
+    "name": "Dmitry Pogrebnoy"
+  },
+  "metadata": {
+    "description": "A collection of Claude Code skills for Ruby development"
+  },
+  "plugins": [
+    {
+      "name": "ruby-type-signature-skills",
+      "source": "./plugins/ruby-type-signature-skills",
+      "description": "Skills for writing, maintaining and migrating Ruby type signatures (RBS, Sorbet, and others)"
+    }
+  ]
+}

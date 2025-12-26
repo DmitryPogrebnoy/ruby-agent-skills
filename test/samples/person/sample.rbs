@@ -1,0 +1,11 @@
+# Note: it was generated with Claude Code using Opus 4.5 model without any Agent Skills
+
+class Person
+  @name: String
+
+  attr_reader name: String
+
+  def initialize: (name: String) -> void
+
+  def name=: (String name) -> String
+end

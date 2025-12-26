@@ -1,0 +1,19 @@
+{
+  "name": "ruby-type-signature-skills",
+  "version": "0.1.0",
+  "description": "Claude Code skills for writing and maintaining Ruby type signatures (RBS)",
+  "author": {
+    "name": "Dmitry Pogrebnoy"
+  },
+  "homepage": "https://github.com/DmitryPogrebnoy/ruby-agent-skills",
+  "repository": "https://github.com/DmitryPogrebnoy/ruby-agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "ruby",
+    "rbs",
+    "types",
+    "type-checking",
+    "signature"
+  ],
+  "skills": "./skills/"
+}
