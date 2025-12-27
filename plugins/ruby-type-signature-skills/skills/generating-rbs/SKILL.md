@@ -21,6 +21,13 @@ RBS Generation Progress:
 - [ ] Step 4: Validate shape of RBS signatures
 - [ ] Step 5: Ensure type safety (only if steep is configured)
 ```
+## Rules
+
+There are several rules that you MUST follow while performing this skill:
+- You MUST not run Ruby code of the project.
+- You MUST not use `untyped`. Infer the proper type instead.
+- You MUST ask the user to provide more details if something is not clear.
+- You MUST prepend any command with `bundle exec` if the project has Gemfile.
 
 ## 1. Analyze the Ruby Source
 
@@ -50,6 +57,7 @@ Always perform this step.
 Always perform this step.
 
 - Take a look at the generated signatures and make sure they are correct, coherent and complete.
+- Try to get rid of any unnecessary `untyped` types.
 - If you find any errors, please fix them and repeat the process until there are no errors.
 
 ## 4. Validate shape of RBS signatures
@@ -67,13 +75,7 @@ Perform this step ONLY if the project Gemfile includes `steep` gem AND the proje
 - Fix any errors reported by `steep check` and repeat the process until there are no errors.
 - Roll back to step 4 if you fixed any errors reported by `steep check`.
 
-# Rules
-
-There are several rules that you MUST follow while performing this skill:
-- You MUST not run Ruby code of the project.
-- You MUST avoid using `untyped` where it is possible to reasonably infer the type.
-- You MUST ask the user to provide more details if something is not clear.
-- You MUST prepend any command with `bundle exec` if the project has Gemfile.
+[//]: # (TODO: Inline example for Ruby <-> RBS conversion)
 
 # References
 
