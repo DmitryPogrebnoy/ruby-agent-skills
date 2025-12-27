@@ -17,9 +17,10 @@ Copy this checklist and track your progress:
 RBS Generation Progress:
 - [ ] Step 1: Analyze the Ruby source
 - [ ] Step 2: Generate RBS signatures
-- [ ] Step 3: Review and refine RBS signatures
-- [ ] Step 4: Validate shape of RBS signatures
-- [ ] Step 5: Ensure type safety (only if steep is configured)
+- [ ] Step 3: Eliminate `untyped` types in generated signatures
+- [ ] Step 4: Review and refine RBS signatures
+- [ ] Step 5: Validate shape of RBS signatures
+- [ ] Step 6: Ensure type safety (only if steep is configured)
 ```
 ## Rules
 
@@ -52,7 +53,16 @@ Always perform this step.
   - Pay extra attention to `Data` and `Struct` types. See [data_and_struct.md](https://github.com/ruby/rbs/blob/master/docs/data_and_struct.md) for handling guide
   - See [gem_rbs_collection](https://github.com/ruby/gem_rbs_collection/tree/main/gems) for RBS signature examples of different Ruby libraries. This link contains only RBS files, Ruby sources are not included.
 
-## 3. Review and refine RBS signatures
+## 3. Eliminate `untyped` types in generated signatures
+
+Always perform this step.
+
+- Go through all generated signatures and replace `untyped` with the proper type.
+- Use assumptions and calls examples in Ruby code and tests to infer the proper type.
+- If you cannot infer the proper type, leave it as `untyped`. 
+  - It is a last resort, use it only when there is no other option.
+
+## 4. Review and refine RBS signatures
 
 Always perform this step.
 
@@ -60,19 +70,20 @@ Always perform this step.
 - Try to get rid of any unnecessary `untyped` types.
 - If you find any errors, please fix them and repeat the process until there are no errors.
 
-## 4. Validate shape of RBS signatures
+## 5. Validate shape of RBS signatures
 
 Always perform this step.
 
 - Run `rbs validate` to verify that existing and new `.rbs` files are internally consistent. It will check syntax, name resolution, inheritance, method overloading, type variables, etc.
 - Fix any errors reported by `rbs validate` and repeat the process until there are no errors.
 
-## 5. Ensure type safety of RBS signatures
+## 6. Ensure type safety of RBS signatures
 
 Perform this step ONLY if the project Gemfile includes `steep` gem AND the project has Steepfile.
 
 - Run `steep check` to verify that generated RBS signatures are type safe.
 - Fix any errors reported by `steep check` and repeat the process until there are no errors.
+  - Do not modify Steepfile in an attempt to fix errors.
 - Roll back to step 4 if you fixed any errors reported by `steep check`.
 
 [//]: # (TODO: Inline example for Ruby <-> RBS conversion)
