@@ -50,6 +50,8 @@ Always perform this step.
   - See [syntax.md](reference/syntax.md) for the full list of RBS types. Double-check it in tricky cases.
 - Take inspiration from RBS signature examples
   - See [rbs_by_example.md](reference/rbs_by_example.md) for short list of RBS signatures examples
+  - See [core](reference/rbs_examples/core/STRUCTURE.md) for RBS signatures of Ruby core library
+  - See [stdlib](reference/rbs_examples/stdlib/STRUCTURE.md) for RBS signatures of Ruby standard library
   - Pay extra attention to `Data` and `Struct` types. See [data_and_struct.md](https://github.com/ruby/rbs/blob/master/docs/data_and_struct.md) for handling guide
   - See [gem_rbs_collection](https://github.com/ruby/gem_rbs_collection/tree/main/gems) for RBS signature examples of different Ruby libraries. This link contains only RBS files, Ruby sources are not included.
 
@@ -92,4 +94,6 @@ Perform this step ONLY if the project Gemfile includes `steep` gem AND the proje
 
 - [syntax.md](reference/syntax.md) - The full list of RBS types and syntax
 - [rbs_by_example.md](reference/rbs_by_example.md) - Short list of RBS signatures examples
+- [core](reference/rbs_examples/core/STRUCTURE.md) - RBS signatures of Ruby core library
+- [stdlib](reference/rbs_examples/stdlib/STRUCTURE.md) - RBS signatures of Ruby standard library
 - [data_and_struct.md](https://github.com/ruby/rbs/blob/master/docs/data_and_struct.md) - Explanation on `Data` and `Struct` types handling
