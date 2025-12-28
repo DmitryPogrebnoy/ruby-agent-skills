@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "lib/rbs_examples_downloader"
+require_relative "lib/rbs_comments_stripper"
 require_relative "lib/generate_plugin"
 
 SOURCE_DIR = "source/plugins"
@@ -9,5 +10,6 @@ RBS_EXAMPLES_PATH = "ruby-type-signature-skills/skills/generating-rbs/reference/
 
 task :generate do
   RbsExamplesDownloader.new(File.join(SOURCE_DIR, RBS_EXAMPLES_PATH)).call
+  RbsCommentsStripper.new(File.join(SOURCE_DIR, RBS_EXAMPLES_PATH)).call
   GeneratePlugin.new(SOURCE_DIR, OUTPUT_DIR).call
 end

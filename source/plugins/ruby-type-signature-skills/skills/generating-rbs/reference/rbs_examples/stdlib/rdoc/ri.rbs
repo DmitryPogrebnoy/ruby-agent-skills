@@ -1,10 +1,5 @@
 %a{annotate:rdoc:skip}
 module RDoc
-  # <!-- rdoc-file=lib/rdoc/ri.rb -->
-  # Namespace for the ri command line tool's implementation.
-  #
-  # See `ri --help` for details.
-  #
   module RI
     module Paths
       type path_type = :system | :site | :home | :gem | :extra

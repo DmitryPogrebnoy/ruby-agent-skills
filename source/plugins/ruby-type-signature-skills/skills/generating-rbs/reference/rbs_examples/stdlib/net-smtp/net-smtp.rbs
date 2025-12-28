@@ -1,5 +1,4 @@
 module Net
-  # Module mixed in to all SMTP error classes
   module SMTPError
     attr_reader response: Response
 
@@ -8,32 +7,26 @@ module Net
     def message: () -> String?
   end
 
-  # Represents an SMTP authentication error.
   class SMTPAuthenticationError < ProtoAuthError
     include SMTPError
   end
 
-  # Represents SMTP error code 4xx, a temporary error.
   class SMTPServerBusy < ProtoServerError
     include SMTPError
   end
 
-  # Represents an SMTP command syntax error (error code 500)
   class SMTPSyntaxError < ProtoSyntaxError
     include SMTPError
   end
 
-  # Represents a fatal SMTP error (error code 5xx, except for 500)
   class SMTPFatalError < ProtoFatalError
     include SMTPError
   end
 
-  # Unexpected reply code returned from server.
   class SMTPUnknownError < ProtoUnknownError
     include SMTPError
   end
 
-  # Command is not supported on server.
   class SMTPUnsupportedCommand < ProtocolError
     include SMTPError
   end
