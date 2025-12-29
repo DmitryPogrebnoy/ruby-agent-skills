@@ -1,0 +1,221 @@
+module JSON
+  autoload: { GenericObject: String }
+
+  type json_value = String | Integer | Float | bool | nil | Array[json_value] | Hash[String, json_value]
+  type parse_options = {
+    ?max_nesting: Integer | false,
+    ?allow_nan: bool,
+    ?symbolize_names: bool,
+    ?create_additions: bool?,
+    ?object_class: Class,
+    ?array_class: Class,
+    ?on_load: ^(untyped) -> untyped,
+    ?allow_blank: bool,
+    ?match_string: Array[[Regexp, Class]]
+  }
+  type generate_options = {
+    ?indent: String,
+    ?space: String,
+    ?space_before: String,
+    ?object_nl: String,
+    ?array_nl: String,
+    ?max_nesting: Integer | false,
+    ?allow_nan: bool,
+    ?strict: bool,
+    ?as_json: ^(untyped) -> untyped,
+    ?allow_duplicate_key: bool
+  }
+
+  module ParserOptions
+    def self.prepare: (parse_options? opts) -> parse_options?
+
+    private
+
+    def self.object_class_proc: (Class object_class, (^(untyped) -> untyped)? on_load) -> ^(untyped) -> untyped
+    def self.array_class_proc: (Class array_class, (^(untyped) -> untyped)? on_load) -> ^(untyped) -> untyped
+    def self.create_additions_proc: (parse_options opts) -> parse_options
+    def self.create_additions_warning: () -> void
+  end
+
+  def self.deprecation_warning: (String message, ?Integer uplevel) -> void
+
+  def self.[]: (String object, ?parse_options? opts) -> untyped
+             | (untyped object, ?generate_options? opts) -> String
+
+  attr_reader self.parser: Class
+
+  def self.parser=: (Class parser) -> Class
+
+  def self.generator=: (Module generator) -> Module
+
+  attr_reader self.generator: Module
+
+  attr_accessor self.state: Class
+
+  def self.create_id=: (String new_value) -> String
+
+  def self.create_id: () -> String
+
+  NaN: Float
+
+  Infinity: Float
+
+  MinusInfinity: Float
+
+  class JSONError < StandardError
+  end
+
+  class ParserError < JSONError
+    attr_reader line: Integer?
+    attr_reader column: Integer?
+  end
+
+  class NestingError < ParserError
+  end
+
+  class GeneratorError < JSONError
+    attr_reader invalid_object: untyped
+
+    def initialize: (String message, ?untyped? invalid_object) -> void
+
+    def detailed_message: (*untyped) -> String
+  end
+
+  class Fragment < Struct[String]
+    attr_accessor json: String
+
+    def initialize: (String json) -> void
+
+    def to_json: (?untyped? state, *untyped) -> String
+  end
+
+  def self.parse: (String source, ?parse_options? opts) -> untyped
+
+  def self.parse!: (String source, ?parse_options? opts) -> untyped
+
+  def self.load_file: (String filespec, ?parse_options? opts) -> untyped
+
+  def self.load_file!: (String filespec, ?parse_options? opts) -> untyped
+
+  def self.generate: (untyped obj, ?generate_options? opts) -> String
+                   | (untyped obj, State opts) -> String
+
+  def self.fast_generate: (untyped obj, ?generate_options? opts) -> String
+
+  def self.pretty_generate: (untyped obj, ?generate_options? opts) -> String
+                          | (untyped obj, State opts) -> String
+
+  def self.unsafe_load_default_options: () -> Hash[Symbol, untyped]
+
+  def self.unsafe_load_default_options=: (Hash[Symbol, untyped] val) -> Hash[Symbol, untyped]
+
+  def self._unsafe_load_default_options: () -> Hash[Symbol, untyped]
+
+  def self.load_default_options: () -> Hash[Symbol, untyped]
+
+  def self.load_default_options=: (Hash[Symbol, untyped] val) -> Hash[Symbol, untyped]
+
+  def self._load_default_options: () -> Hash[Symbol, untyped]
+
+  interface _ToStr
+    def to_str: () -> String
+  end
+
+  interface _ToIO
+    def to_io: () -> IO
+  end
+
+  interface _Readable
+    def read: () -> String
+  end
+
+  type load_source = String | _ToStr | _ToIO | _Readable | nil
+
+  def self.unsafe_load: (load_source source, ?^(untyped) -> untyped proc, ?parse_options? options) -> untyped
+
+  def self.load: (load_source source, ?^(untyped) -> untyped proc, ?parse_options? options) -> untyped
+
+  def self.dump_default_options: () -> Hash[Symbol, untyped]
+
+  def self.dump_default_options=: (Hash[Symbol, untyped] val) -> Hash[Symbol, untyped]
+
+  def self._dump_default_options: () -> Hash[Symbol, untyped]
+
+  interface _Writable
+    def write: (String) -> untyped
+  end
+
+  def self.dump: (untyped obj, ?_Writable? anIO, ?Integer? limit, ?generate_options? kwargs) -> (String | _Writable)
+
+  def self.unparse: (*untyped) -> String
+
+  def self.fast_unparse: (*untyped) -> String
+
+  def self.pretty_unparse: (*untyped) -> String
+
+  def self.restore: (*untyped) -> untyped
+
+  # Module function versions (available as instance methods when module is included)
+  def parse: (String source, ?parse_options? opts) -> untyped
+
+  def parse!: (String source, ?parse_options? opts) -> untyped
+
+  def load_file: (String filespec, ?parse_options? opts) -> untyped
+
+  def load_file!: (String filespec, ?parse_options? opts) -> untyped
+
+  def generate: (untyped obj, ?generate_options? opts) -> String
+              | (untyped obj, State opts) -> String
+
+  def fast_generate: (untyped obj, ?generate_options? opts) -> String
+
+  def pretty_generate: (untyped obj, ?generate_options? opts) -> String
+                     | (untyped obj, State opts) -> String
+
+  def unsafe_load: (load_source source, ?^(untyped) -> untyped proc, ?parse_options? options) -> untyped
+
+  def load: (load_source source, ?^(untyped) -> untyped proc, ?parse_options? options) -> untyped
+
+  def dump: (untyped obj, ?_Writable? anIO, ?Integer? limit, ?generate_options? kwargs) -> (String | _Writable)
+
+  def unparse: (*untyped) -> String
+
+  def fast_unparse: (*untyped) -> String
+
+  def pretty_unparse: (*untyped) -> String
+
+  def restore: (*untyped) -> untyped
+
+  class Coder
+    @state: State
+    @parser_config: untyped
+
+    def initialize: (?generate_options? options) ?{ (untyped) -> untyped } -> void
+
+    def dump: (untyped object, ?_Writable? io) -> (String | _Writable)
+
+    alias generate dump
+
+    def load: (String source) -> untyped
+
+    alias parse load
+
+    def load_file: (String path) -> untyped
+  end
+
+  private
+
+  def self.on_mixed_keys_hash: (Hash[untyped, untyped] hash, bool do_raise) -> void
+
+  def self.deprecated_singleton_attr_accessor: (*Symbol attrs) -> void
+end
+
+module Kernel
+  private
+
+  def j: (*untyped objs) -> nil
+
+  def jj: (*untyped objs) -> nil
+
+  def JSON: (untyped object, ?JSON::parse_options? | JSON::generate_options? opts) -> untyped
+end

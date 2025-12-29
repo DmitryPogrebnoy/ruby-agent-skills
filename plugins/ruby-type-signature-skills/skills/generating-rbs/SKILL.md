@@ -88,8 +88,6 @@ Perform this step ONLY if the project Gemfile includes `steep` gem AND the proje
   - Do not modify Steepfile in an attempt to fix errors.
 - Roll back to step 4 if you fixed any errors reported by `steep check`.
 
-[//]: # (TODO: Inline example for Ruby <-> RBS conversion)
-
 # References
 
 - [syntax.md](reference/syntax.md) - The full list of RBS types and syntax

@@ -1,0 +1,134 @@
+class Time
+  VERSION: String
+
+  ZoneOffset: Hash[String, Integer]
+
+  MonthValue: Hash[String, Integer]
+
+  LeapYearMonthDays: Array[Integer]
+
+  CommonYearMonthDays: Array[Integer]
+
+  # Returns the number of seconds the specified time zone differs from UTC.
+  #
+  # Numeric time zones that include minutes, such as `-10:00` or `+1330` will work,
+  # as will simpler hour-only time zones like `-10` or `+13`.
+  #
+  # Textual time zones listed in ZoneOffset are also supported.
+  #
+  # If the time zone does not match any of the above, `zone_offset` will check
+  # if the local time zone matches `zone`. Specifying a value for `year` will
+  # change the year used to find the local time zone.
+  #
+  # Returns nil if unable to determine the offset.
+  def self.zone_offset: (String zone, ?Integer? year) -> Integer?
+
+  # Parses a string representation of a Time using a heuristic.
+  #
+  # This method does not function as a validator. If the input string does not
+  # match valid formats strictly, you may get a cryptic result.
+  #
+  # Any missing pieces of the date are inferred based on the current date or `now`.
+  #
+  # If a block is given, the year described in `date` is converted by the block.
+  def self.parse: (String date, ?Time now) -> Time
+                | (String date, ?Time now) { (Integer year) -> Integer } -> Time
+
+  # Parses a string using the provided strptime format.
+  #
+  # Raises ArgumentError if the date or format is invalid.
+  #
+  # If a block is given, the year described in `date` is converted by the block.
+  def self.strptime: (String date, String format, ?Time now) -> Time
+                   | (String date, String format, ?Time now) { (Integer year) -> Integer } -> Time
+
+  # Parses `date` as date-time defined by RFC 2822 and converts it to a Time object.
+  #
+  # ArgumentError is raised if `date` is not compliant with RFC 2822 or if the
+  # Time class cannot represent specified date.
+  def self.rfc2822: (String date) -> Time
+
+  # Alias for rfc2822.
+  alias self.rfc822 self.rfc2822
+
+  # Parses `date` as an HTTP-date defined by RFC 2616 and converts it to a Time object.
+  #
+  # ArgumentError is raised if `date` is not compliant with RFC 2616 or if the
+  # Time class cannot represent specified date.
+  def self.httpdate: (String date) -> Time
+
+  # Parses `time` as a dateTime defined by XML Schema (ISO 8601) and converts it
+  # to a Time object.
+  #
+  # ArgumentError is raised if `time` is not compliant with the format or if the
+  # Time class cannot represent the specified time.
+  def self.xmlschema: (String time) -> Time
+
+  # Alias for xmlschema.
+  alias self.iso8601 self.xmlschema
+
+  # Returns true if the zone represents UTC.
+  private def self.zone_utc?: (String zone) -> bool
+
+  # Forces the time to the specified zone, modifying the time object.
+  private def self.force_zone!: (Time t, String zone, ?Integer? offset) -> Time
+
+  # Returns the number of days in the given month.
+  private def self.month_days: (Integer y, Integer m) -> Integer
+
+  # Applies an offset to the date/time components.
+  private def self.apply_offset: (
+    Integer year,
+    Integer mon,
+    Integer day,
+    Integer hour,
+    Integer min,
+    Integer sec,
+    Integer off
+  ) -> [Integer, Integer, Integer, Integer, Integer, Integer]
+
+  # Creates a Time object from parsed date components.
+  private def self.make_time: (
+    String date,
+    Integer? year,
+    Integer? yday,
+    Integer? mon,
+    Integer? day,
+    Integer? hour,
+    Integer? min,
+    Integer? sec,
+    Rational? sec_fraction,
+    String? zone,
+    Time? now
+  ) -> Time
+
+  # Returns a string which represents the time as date-time defined by RFC 2822.
+  #
+  # Format: `day-of-week, DD month-name CCYY hh:mm:ss zone`
+  #
+  # If self is a UTC time, -0000 is used as zone.
+  def rfc2822: () -> String
+
+  # Alias for rfc2822.
+  alias rfc822 rfc2822
+
+  # Returns a string which represents the time as RFC 1123 date of HTTP-date
+  # defined by RFC 2616.
+  #
+  # Format: `day-of-week, DD month-name CCYY hh:mm:ss GMT`
+  #
+  # Note that the result is always UTC (GMT).
+  def httpdate: () -> String
+
+  # Returns a string which represents the time as a dateTime defined by XML Schema.
+  #
+  # Format: `CCYY-MM-DDThh:mm:ssTZD` or `CCYY-MM-DDThh:mm:ss.sssTZD`
+  #
+  # Where TZD is Z or [+-]hh:mm.
+  #
+  # `fraction_digits` specifies a number of digits to use for fractional seconds.
+  def xmlschema: (?Integer fraction_digits) -> String
+
+  # Alias for xmlschema.
+  alias iso8601 xmlschema
+end

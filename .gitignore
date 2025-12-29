@@ -1,3 +1,4 @@
 .idea
 .claude
 Gemfile.lock
+/test/samples/stdlib/dump/

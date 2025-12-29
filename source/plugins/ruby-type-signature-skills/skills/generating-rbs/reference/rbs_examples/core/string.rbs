@@ -238,9 +238,9 @@ class String
 
   def ljust: (int size, ?string pad_string) -> String
 
-  def lstrip: () -> String
+  def lstrip: (*selector) -> String
 
-  def lstrip!: () -> self?
+  def lstrip!: (*selector) -> self?
 
   def match: (Regexp | string pattern, ?int offset) -> MatchData?
            | [T] (Regexp | string pattern, ?int offset) { (MatchData matchdata) -> T } -> T?
@@ -271,9 +271,9 @@ class String
 
   def rpartition: (Regexp | string pattern) -> [String, String, String]
 
-  def rstrip: () -> String
+  def rstrip: (*selector) -> String
 
-  def rstrip!: () -> self?
+  def rstrip!: (*selector) -> self?
 
   def scan: (Regexp pattern) -> Array[String | Array[String?]]
           | (Regexp pattern) { (String | Array[String?] matches) -> void } -> self
@@ -306,9 +306,9 @@ class String
 
   def start_with?: (*Regexp | string prefixes) -> bool
 
-  def strip: () -> String
+  def strip: (*selector) -> String
 
-  def strip!: () -> self?
+  def strip!: (*selector) -> self?
 
   def sub: (Regexp | string pattern, string | hash[String, _ToS] replacement) -> String
          | (Regexp | string pattern) { (String match) -> _ToS } -> String

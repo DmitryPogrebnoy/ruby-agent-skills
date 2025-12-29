@@ -1,0 +1,104 @@
+# RBS signatures for time.rb
+# Extends the Time class with additional parsing and formatting methods
+
+class Time
+  VERSION: String
+
+  # A hash of timezones mapped to hour differences from UTC.
+  # The set of time zones corresponds to RFC 2822 and ISO 8601.
+  ZoneOffset: Hash[String, Integer]
+
+  # Month name to number mapping
+  MonthValue: Hash[String, Integer]
+
+  # Days in each month for leap years
+  LeapYearMonthDays: Array[Integer]
+
+  # Days in each month for common years
+  CommonYearMonthDays: Array[Integer]
+
+  # Returns the number of seconds the specified time zone differs from UTC.
+  #
+  # Supports numeric time zones (e.g., "-10:00", "+1330", "-10", "+13"),
+  # textual time zones from ZoneOffset, and local time zone matching.
+  #
+  # Returns nil if the offset cannot be determined.
+  def self.zone_offset: (String zone, ?Integer? year) -> Integer?
+
+  # Takes a string representation of a Time and attempts to parse it
+  # using a heuristic. Missing date pieces are inferred from `now`.
+  #
+  # If a block is given, the year is passed to it for conversion
+  # (useful for handling two-digit years).
+  def self.parse: (String date, ?Time now) -> Time
+                | (String date, ?Time now) { (Integer year) -> Integer } -> Time
+
+  # Parses a date string using the specified strptime format.
+  # Raises ArgumentError if the date or format is invalid.
+  #
+  # If a block is given, the year is passed to it for conversion.
+  def self.strptime: (String date, String format, ?Time now) -> Time
+                   | (String date, String format, ?Time now) { (Integer year) -> Integer } -> Time
+
+  # Parses date as date-time defined by RFC 2822 and converts it to a Time object.
+  # Raises ArgumentError if date is not compliant with RFC 2822.
+  def self.rfc2822: (String date) -> Time
+
+  # Alias for rfc2822
+  def self.rfc822: (String date) -> Time
+
+  # Parses date as an HTTP-date defined by RFC 2616 and converts it to a Time object.
+  # Raises ArgumentError if date is not compliant with RFC 2616.
+  def self.httpdate: (String date) -> Time
+
+  # Parses time as a dateTime defined by XML Schema (ISO 8601 restricted format)
+  # and converts it to a Time object.
+  # Raises ArgumentError if time is not compliant with the format.
+  def self.xmlschema: (String time) -> Time
+
+  # Alias for xmlschema
+  def self.iso8601: (String time) -> Time
+
+  # Returns a string representing the time as date-time defined by RFC 2822:
+  #   day-of-week, DD month-name CCYY hh:mm:ss zone
+  # where zone is [+-]hhmm.
+  # If self is UTC, -0000 is used as zone.
+  def rfc2822: () -> String
+
+  # Alias for rfc2822
+  def rfc822: () -> String
+
+  # Returns a string representing the time as RFC 1123 date of HTTP-date
+  # defined by RFC 2616:
+  #   day-of-week, DD month-name CCYY hh:mm:ss GMT
+  # The result is always in UTC (GMT).
+  def httpdate: () -> String
+
+  # Returns a string representing the time as a dateTime defined by XML Schema:
+  #   CCYY-MM-DDThh:mm:ssTZD
+  #   CCYY-MM-DDThh:mm:ss.sssTZD
+  # where TZD is Z or [+-]hh:mm.
+  #
+  # fraction_digits specifies the number of digits for fractional seconds (default 0).
+  def xmlschema: (?Integer fraction_digits) -> String
+
+  # Alias for xmlschema
+  def iso8601: (?Integer fraction_digits) -> String
+
+  private
+
+  # Checks if the zone represents UTC
+  def self.zone_utc?: (String zone) -> bool
+
+  # Forces the time to the specified zone
+  def self.force_zone!: (Time t, String zone, ?Integer? offset) -> Time
+
+  # Returns the number of days in the given month
+  def self.month_days: (Integer y, Integer m) -> Integer
+
+  # Applies a timezone offset to date/time components
+  def self.apply_offset: (Integer year, Integer mon, Integer day, Integer hour, Integer min, Integer sec, Integer off) -> [Integer, Integer, Integer, Integer, Integer, Integer]
+
+  # Internal method to construct a Time object from parsed components
+  def self.make_time: (String date, Integer? year, Integer? yday, Integer? mon, Integer? day, Integer? hour, Integer? min, Integer? sec, Rational? sec_fraction, String? zone, Time? now) -> Time
+end
