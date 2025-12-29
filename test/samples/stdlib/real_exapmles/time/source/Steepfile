@@ -1,0 +1,10 @@
+D = Steep::Diagnostic
+
+target :lib do
+  signature "sig"
+
+  # Files that pass static type checking
+  check "time.rb"
+
+  configure_code_diagnostics(D::Ruby.default)
+end
