@@ -16,7 +16,7 @@ class RbsExamplesDownloader
   end
 
   def call
-    puts "\n=== Downloading RBS examples from #{REPO} ==="
+    puts "\n=== Downloading RBS rbs_inline_examples from #{REPO} ==="
     puts "Downloading to: #{@dest_dir}"
 
     prepare_destination

@@ -4,7 +4,7 @@ require "fileutils"
 require_relative "http_client"
 
 # Generates plugins from source directory
-class GeneratePlugin
+class GeneratePlugins
   SEPARATOR = "-" * 100
 
   def initialize(source_dir, output_dir)
