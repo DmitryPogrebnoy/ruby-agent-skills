@@ -12,8 +12,6 @@ module ObjectSpace
 
   def self?.count_imemo_objects: (?Hash[Symbol, Integer] result_hash) -> Hash[Symbol, Integer]
 
-  def self?.count_nodes: (?Hash[Symbol, Integer] result_hash) -> Hash[Symbol, Integer]
-
   def self?.count_objects_size: (?Hash[Symbol, Integer] result_hash) -> Hash[Symbol, Integer]
 
   def self?.count_symbols: (?Hash[Symbol, Integer] result_hash) -> Hash[Symbol, Integer]

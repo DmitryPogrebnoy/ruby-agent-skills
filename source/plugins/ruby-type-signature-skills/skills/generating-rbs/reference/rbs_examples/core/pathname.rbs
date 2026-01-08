@@ -86,9 +86,6 @@ class Pathname
 
   def file?: () -> bool
 
-  def find: (?ignore_error: boolish) { (Pathname) -> untyped } -> nil
-          | (?ignore_error: boolish) -> Enumerator[Pathname, nil]
-
   def fnmatch: (String pattern, ?Integer flags) -> bool
 
   alias fnmatch? fnmatch
@@ -162,8 +159,6 @@ class Pathname
   def rename: (Pathname | string new_name) -> 0
 
   def rmdir: () -> 0
-
-  def rmtree: () -> self
 
   def root?: () -> bool
 

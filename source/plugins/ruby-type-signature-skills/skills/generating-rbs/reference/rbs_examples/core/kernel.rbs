@@ -4,8 +4,9 @@ module Kernel : BasicObject
                   | (::Range[Integer] start_or_range) -> ::Array[String]?
                   | () -> ::Array[String]
 
-  def self?.caller_locations: (?Integer start_or_range, ?Integer length) -> ::Array[Thread::Backtrace::Location]?
-                            | (?::Range[Integer] start_or_range) -> ::Array[Thread::Backtrace::Location]?
+  def self?.caller_locations: (Integer start_or_range, ?Integer length) -> ::Array[Thread::Backtrace::Location]?
+                            | (::Range[Integer] start_or_range) -> ::Array[Thread::Backtrace::Location]?
+                            | () -> ::Array[Thread::Backtrace::Location]
 
   def self?.catch: [T] (T tag) { (T tag) -> untyped } -> untyped
                  | () { (Object tag) -> untyped } -> untyped

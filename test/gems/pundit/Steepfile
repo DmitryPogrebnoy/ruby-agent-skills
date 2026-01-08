@@ -1,0 +1,28 @@
+# Steepfile for Pundit type checking
+# Run with: bundle exec steep check
+
+D = Steep::Diagnostic
+
+target :lib do
+  signature "sig"
+
+  # Files that pass static type checking
+  check "lib/pundit/version.rb"
+  check "lib/pundit/error.rb"
+  check "lib/pundit/cache_store.rb"
+  check "lib/pundit/cache_store/null_store.rb"
+  check "lib/pundit/cache_store/legacy_store.rb"
+  check "lib/pundit/helper.rb"
+
+  # context.rb: Has flow-sensitive typing (policy! uses cached_find with &:policy!
+  # which raises on nil, but Steep can't prove this statically)
+  # check "lib/pundit/context.rb"
+
+  # Files with dynamic patterns (respond_to?, safe_constantize, etc.)
+  # check "lib/pundit/policy_finder.rb"
+  # check "lib/pundit/authorization.rb"
+  # check "lib/pundit/railtie.rb"
+  # check "lib/pundit/rspec.rb"
+
+  configure_code_diagnostics(D::Ruby.default)
+end

@@ -39,6 +39,7 @@ Type signatures for Ruby standard library.
 - [open3/](open3/)
 - [openssl/](openssl/)
 - [optparse/](optparse/)
+- [pathname/](pathname/)
 - [pp/](pp/)
 - [prettyprint/](prettyprint/)
 - [pstore/](pstore/)
