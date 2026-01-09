@@ -19,3 +19,11 @@ This project includes source files from the packwerk project - https://github.co
 Copyright (c) 2020 Shopify Inc.
 
 Licensed under the MIT License.
+
+---
+
+This project includes source files from the stripe-ruby project - https://github.com/stripe/stripe-ruby
+
+Copyright (c) 2011-2024 Stripe, Inc.
+
+Licensed under the MIT License.
